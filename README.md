@@ -1,4 +1,4 @@
-# frontend_wad2022_hw4
+# frontend_wad2022_hw4 for Group AM
 
 ## Project setup
 ```
