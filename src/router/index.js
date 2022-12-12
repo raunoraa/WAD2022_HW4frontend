@@ -2,6 +2,8 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import SignUp from "../views/SignUp.vue";
 import LogIn from "../views/Login.vue";
+import AddPost from "../views/AddPost.vue";
+import APost from "../views/APost.vue";
 import auth from "../auth";
 
 
@@ -21,6 +23,11 @@ const routes = [{
         }
     },
     {
+        path: "/apost/:id",
+        name: "APost",
+        component: APost,
+    },
+    {
         path: "/signup",
         name: "SignUp",
         component: SignUp,
@@ -29,6 +36,11 @@ const routes = [{
         path: "/login",
         name: "LogIn",
         component: LogIn,
+    },
+    {
+        path: "/addpost",
+        name: "AddPost",
+        component: AddPost,
     },
     {
         path: "/about",

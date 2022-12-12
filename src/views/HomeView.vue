@@ -8,13 +8,18 @@
         <ul>
           <div class="item" v-for="post in posts" :key="post.id">
             <!-- / We are putting an anchor for each post, when we click on it, we will be directed to the specific post view (/apost/) /  -->
-            <a class="singlepost" :href="'/api/apost/' + post.id">
-              <span class="title"> <b>Title:</b> {{ post.title }} </span><br />
+            <!-- <a class="singlepost" :href="'/apost/' + post.id"> -->
+            <a class="singlepost" @click="GoToAPost(post.id)"> 
+              <span class="title"> <b>Title:</b>{{ post.title }}  {{post.date}} </span><br />
               <span class="body"> <b>Body:</b> {{ post.body }} </span> <br />
-              <span class="url"> <b>Url:</b> {{ post.urllink }} </span> <br />
+              <!-- <span class="url"> <b>Url:</b> {{ post.urllink }} </span> <br /> -->
             </a>
           </div>
         </ul>
+    </div>
+    <div class="buttonContainer">
+      <button @click="GoToAddPost">Add Post</button>
+      <button @click="DeleteAllPosts">Delete All</button>
     </div>
   </div>
 </template>
@@ -34,6 +39,35 @@ export default {
     }
   },
   methods: {
+    GoToAPost(id){
+
+      let string = "/apost/"+id
+      this.$router.push(string)
+    },
+    DeleteAllPosts(){
+      let p =null;
+      for (p of this.posts) {
+
+        
+        fetch(`http://localhost:3000/api/posts/${p.id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((response) => {
+          console.log(response.data);
+          // We are using the router instance of this element to navigate to a different URL location
+          //this.$router.push("/");
+          location.assign("/");
+        })
+        .catch((e) => {
+          console.log(e);
+        }); 
+        
+      }
+    },
+    GoToAddPost(){
+      this.$router.push("/addpost")
+    },
     Logout() {
       fetch("http://localhost:3000/auth/logout", {
           credentials: 'include', //  Don't forget to specify this if you need cookies

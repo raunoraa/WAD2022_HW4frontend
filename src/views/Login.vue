@@ -9,6 +9,7 @@
         <button @click="LogIn"  class="center">LogIn</button>
         <button @click='this.$router.push("/signup")' class="center">Signup</button>
       </div>
+      <h3 id="info">Wrong email or password!</h3>
     </div>
   </template>
   
@@ -107,4 +108,11 @@
     display: flex;
     justify-content: center;
   }
+
+  #info{
+    color: red;
+    display: none;
+    list-style-type: none;
+  }
+
   </style>
