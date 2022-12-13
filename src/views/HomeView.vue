@@ -1,21 +1,26 @@
 <template>
-  <div class="header">
+  <div class="main">
     <div class="container">
-    <button v-if = "authResult" @click="Logout" class="center">Logout</button>
+    <button v-if = "authResult" @click="Logout" class="logoutb">Logout</button>
     </div>
     <div id="post-list">
-      <h1>All Posts</h1>
-        <ul>
           <div class="item" v-for="post in posts" :key="post.id">
             <!-- / We are putting an anchor for each post, when we click on it, we will be directed to the specific post view (/apost/) /  -->
             <!-- <a class="singlepost" :href="'/apost/' + post.id"> -->
-            <a class="singlepost" @click="GoToAPost(post.id)"> 
-              <span class="title"> <b>Title:</b>{{ post.title }}  {{post.date}} </span><br />
-              <span class="body"> <b>Body:</b> {{ post.body }} </span> <br />
+            <a class="singlepost" @click="GoToAPost(post.id)">
+              
+              <div class="post-header">
+                <p>{{post.title}}</p>
+                <p>{{post.date}}</p>
+              </div>
+
+              <div class="post-body">
+                <p class="normal">{{ post.body }}</p>
+              </div>
               <!-- <span class="url"> <b>Url:</b> {{ post.urllink }} </span> <br /> -->
             </a>
           </div>
-        </ul>
+
     </div>
     <div class="buttonContainer">
       <button @click="GoToAddPost">Add Post</button>
@@ -44,7 +49,7 @@ export default {
       let string = "/apost/"+id
       this.$router.push(string)
     },
-    DeleteAllPosts(){
+    DeleteAllPosts(){ //it has a weird bug, which occurs rarely under very specific conditions (haven't been able to reproduce it myself after adding another location.assign), in which case, the page view will still display some of the posts although they are deleted in the database
       let p =null;
       for (p of this.posts) {
 
@@ -62,7 +67,7 @@ export default {
         .catch((e) => {
           console.log(e);
         }); 
-        
+        location.assign("/");
       }
     },
     GoToAddPost(){
@@ -115,15 +120,53 @@ body{
   margin: 20px 40px;
   font-size: 1.2rem;
   letter-spacing: 1px;
-  background: #fafafa;
   position: relative;
 }
-.post-list{
-  background: rgb(189, 212, 199);
-  margin-bottom: 5px;
-  padding: 3px 5px;
-  border-radius: 10px;
+
+.main{
+  margin-top:3em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+.item{
+  margin: 2em;
+  
+  /*
+  display: flex;
+  flex-direction: column;
+  */
+  /*align-items: center;*/
+}
+
+.singlepost{
+
+  background: rgb(147, 194, 16);
+  padding: 2em;
+  border-radius: 1em;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  inline-size: 600px;
+  overflow-wrap: break-word;
+}
+
+@media (max-width:800px) {
+  .singlepost{
+    inline-size: 300px;
+  }
+}
+
+.singlepost:hover{
+  background: rgb(133, 176, 17);
+}
+
+.singlepost:active{
+  background: rgb(109, 143, 18);
+}
+
 h3{
     margin: 0;
   padding: 0;
@@ -131,21 +174,17 @@ h3{
   color: #444;
   background: #7e9756;
 }
-p{
-  background: #796dbd;
-}
-h1, h2, h3, h4, ul, li, a, input, label, button, div, footer{
-  margin: 0;
-  padding: 0;
-  font-family: 'Quicksand', sans-serif;
-  color: #444;
-}
+
+/*
 nav{
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   margin-bottom: 80px;
 }
+*/
+
+/*
 input{
   padding: 10px 12px;
   border-radius: 4px;
@@ -153,49 +192,41 @@ input{
   font-size: 1em;
   width: 100%;
 }
+
 label{
   display: block;
   margin: 20px 0 10px;
 }
+*/
 button{
   margin-top: 30px;
+  margin-left:2em;
+  margin-right:2em;
+  margin-bottom:3em;
   border-radius: 36px;
-  background: #FEE996;
+  background: #a8995b;
   border:0;
   font-weight: 700;
   font-size: 0.8em;
   display: block;
   padding: 10px 16px;
   letter-spacing: 2px;
+  cursor: pointer;
 }
+/*
 nav{
   display: flex;
   align-items: center;
 }
-.post {
-    width: 80%;
-    position: relative;
-    padding: 10px;
-    margin: 10px auto;
-    border: 1px solid gray;
-    text-align: left;
-}
-.center {
-  margin: auto;
-  border: 0;
-  padding: 10px 20px;
-  margin-top: 20px;
-  margin: 10px auto;
-  width: 30%; 
-}
+*/
 .container {
   display: flex;
   justify-content: center;
 }
 
+
+/*
 #post-list {
-  background: #6e8b97;
-  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
   margin-bottom: 30px;
   padding: 10px 20px;
   margin: auto;
@@ -212,4 +243,53 @@ nav{
   padding: 20px;
   background: rgba(255, 255, 255, 0.7);
 }
+*/
+
+p{
+  margin:1em;
+  font-weight: bold;
+}
+
+.post-header{
+  display: flex;
+  flex-direction:row;
+  justify-content: space-between;
+  padding: 1em;
+  background: rgb(175, 175, 231);
+  margin-bottom:1em;
+  border-radius: 1em;
+}
+
+.post-body{
+  padding: 2em;
+  background: rgb(192, 162, 162);
+  text-align: left;
+  overflow-wrap: break-word;
+  border-radius: 1em;
+}
+
+.normal{
+  font-weight: normal;
+}
+
+.logoutb{
+  margin-top:0;
+  margin-bottom:0;
+  padding-left: 3em;
+  padding-right:3em;
+}
+
+.buttonContainer{
+  display: flex;
+  flex-direction: row;
+}
+
+button:hover{
+  background: #c1af68;
+}
+
+button:active{
+  background: #d28b71;
+}
+
 </style>

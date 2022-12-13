@@ -1,11 +1,14 @@
 <template>
     <div class="form">
-      <h3>SignUp</h3>
+      <h3>Sign Up</h3>
       <label for="email">Email</label>
       <input type="email" name="email"  required v-model="email">
       <label for="password">Password</label>
       <input type="password" name="password" required v-model="password">
-      <button @click="SignUp" class="SignUp">SignUp</button>
+      <button @click="SignUp" class="SignUp">Sign Up</button>
+      <h3 id="info">Password length must be at least 8 characters!</h3>
+      <h3 id="info2">Email field can't be empty!</h3>
+      <h3 id="info3">This email is already in use!</h3>
     </div>
   </template>
   
@@ -23,6 +26,15 @@
   
   
   SignUp() {
+      
+        if(this.email.length<1){
+          document.getElementById("info2").style.display = "list-item";
+        }
+        else if(this.password.length < 8){
+          document.getElementById("info").style.display = "list-item";
+        } else{
+      
+
         var data = {
           email: this.email,
           password: this.password
@@ -43,9 +55,17 @@
         //location.assign("/");
         })
         .catch((e) => {
+
+          if(e.toString().includes("duplicate")){
+            document.getElementById("info3").style.display = "list-item";
+          }
+
           console.log(e);
           console.log("error");
         });
+        
+      }
+      
       },
     }, 
     }
@@ -55,6 +75,7 @@
   .form {
     max-width: 420px;
     margin: 30px auto;
+    margin-top:4em;
     background: rgb(167, 154, 154);
     text-align: left;
     padding: 40px;
@@ -62,8 +83,25 @@
   }
   h3 {
     text-align: center;
-    color: rgb(8, 110, 110);
+    color: rgb(108, 205, 72);
   }
+
+  #info{
+    color: red;
+    display: none;
+    list-style-type: none;
+  }
+  #info2{
+    color: red;
+    display: none;
+    list-style-type: none;
+  }
+  #info3{
+    color: red;
+    display: none;
+    list-style-type: none;
+  }
+
   label {
     color: rgb(8, 110, 110);
     display: inline-block;
@@ -91,5 +129,16 @@
     border-radius: 20px;
     align-items: center;
     text-align: center;
+    cursor: pointer;
+    font-weight: bold;
   }
+
+  button:hover{
+    background: rgb(232, 59, 59);
+  }
+
+  button:active{
+    background: rgb(132, 3, 3);
+  }
+
   </style>

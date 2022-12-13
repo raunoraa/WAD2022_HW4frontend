@@ -11,10 +11,10 @@
         <label for="url">Url: </label>
         <input name="url" type="text" id="url" required v-model="post.urllink" />
         -->
-      </div>
-      <div>
-        <button @click="updatePost" class="updatePost">Update Post</button>
-        <button @click="deletePost" class="deletePost">Delete Post</button>
+        <div class="buttons">
+            <button @click="updatePost" class="updatePost">Update Post</button>
+            <button @click="deletePost" class="deletePost">Delete Post</button>
+        </div>
       </div>
     </div>
   </template>
@@ -96,6 +96,7 @@
   #form {
     max-width: 420px;
     margin: 30px auto;
+    margin-top:3em;
     background: rgb(167, 154, 154);
     text-align: left;
     padding: 40px;
@@ -130,5 +131,19 @@
     margin-top: 20px;
     color: white;
     border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  button:hover{
+    background: rgb(7, 96, 96);
+  }
+  button:active{
+    background: rgb(5, 76, 76);
+  }
+  .buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top:1em;
   }
   </style>

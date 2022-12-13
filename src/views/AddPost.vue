@@ -65,6 +65,7 @@
   .form {
     max-width: 420px;
     margin: 30px auto;
+    margin-top:5em;
     background: rgb(167, 154, 154);
     text-align: left;
     padding: 40px;
@@ -101,5 +102,14 @@
     border-radius: 20px;
     align-items: center;
     text-align: center;
+    cursor: pointer;
+    font-weight: bold;
   }
+  button:hover{
+    background: rgb(7, 96, 96);
+  }
+  button:active{
+    background: rgb(5, 76, 76);
+  }
+
   </style>
