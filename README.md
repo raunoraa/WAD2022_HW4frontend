@@ -1,4 +1,4 @@
-# frontend_wad2022_hw4 for Group AM
+# WAD2022_HW4 front end repository for Group AM
 
 ## Project setup
 
