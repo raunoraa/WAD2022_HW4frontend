@@ -6,6 +6,7 @@
 Before running the front-end, start the back-end: https://github.com/raunoraa/WAD2022_HW4backend
 <br>
 <br>
+
 ### Open terminal and issue the following commands:
 
 ```
